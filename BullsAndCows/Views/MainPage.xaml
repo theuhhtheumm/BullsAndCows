@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BullsAndCows.Views.MainPage">
+
+    <!-- Page background: purple (top) fading to peach (bottom), like the design -->
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#D7AEFF" Offset="0.0" />
+            <GradientStop Color="#FFE0B7" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <!-- One centered column that holds everything, top to bottom -->
+    <VerticalStackLayout Padding="0,90,0,20"
+                         Spacing="8"
+                         WidthRequest="250"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Start">
+
+        <!-- Title (fixed text) -->
+        <Label Text="Bulls And Cows"
+               FontSize="36"
+               TextColor="White"
+               HorizontalTextAlignment="Center" />
+
+        <!-- Status / instruction message from the ViewModel -->
+        <Label Text="{Binding StatusMessage}"
+               FontSize="16"
+               TextColor="White"
+               HorizontalTextAlignment="Center"
+               MinimumHeightRequest="44" />
+
+        <!-- Caption above the input (fixed text) -->
+        <Label Text="{Binding GuessNumberText}"
+               FontSize="16"
+               TextColor="White"
+               HorizontalTextAlignment="Center"
+               Margin="0,12,0,0" />
+
+        <!-- Guess input: rounded purple box with the Entry inside.
+             Enter on the keyboard also runs SubmitCommand. -->
+        <Border BackgroundColor="#9578AF"
+                Stroke="#042431"
+                StrokeThickness="1.5"
+                WidthRequest="142"
+                HeightRequest="52"
+                HorizontalOptions="Center">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="9" />
+            </Border.StrokeShape>
+            <Entry Text="{Binding GuessText}"
+                   IsEnabled="{Binding IsGameActive}"
+                   ReturnCommand="{Binding SubmitCommand}"
+                   Keyboard="Numeric"
+                   FontSize="28"
+                   TextColor="White"
+                   BackgroundColor="Transparent"
+                   HorizontalTextAlignment="Center"
+                   VerticalOptions="Center" />
+        </Border>
+
+        <!-- Bulls / Cows of the last guess -->
+        <Label Text="{Binding LastResultText}"
+               FontSize="16"
+               TextColor="White"
+               HorizontalTextAlignment="Center"
+               MinimumHeightRequest="24" />
+        
+
+        <!-- Submit button (disabled when the game is over) -->
+        <Button Text="Submit"
+                Command="{Binding SubmitCommand}"
+                IsEnabled="{Binding IsGameActive}"
+                FontSize="24"
+                TextColor="White"
+                BackgroundColor="#9578AF"
+                BorderColor="#042431"
+                BorderWidth="1.5"
+                CornerRadius="6"
+                Padding="0"
+                WidthRequest="106"
+                HeightRequest="36" />
+
+        <!-- Quit button -->
+        <Button Text="Quit"
+                Command="{Binding QuitCommand}"
+                FontSize="24"
+                TextColor="White"
+                BackgroundColor="#9578AF"
+                BorderColor="#042431"
+                BorderWidth="1.5"
+                CornerRadius="6"
+                Padding="0"
+                WidthRequest="106"
+                HeightRequest="36" />
+
+        <!-- Error message: red, only visible when HasError is true -->
+        <Label Text="{Binding ErrorMessage}"
+               IsVisible="{Binding HasError}"
+               FontSize="16"
+               TextColor="Red"
+               HorizontalTextAlignment="Center" />
+<!-- Random number button and the text field that shows the number -->
+<Button Text="Random Number"
+        Command="{Binding RandomNumberCommand}"
+        FontSize="24"
+        TextColor="White"
+        BackgroundColor="#9578AF"
+        BorderColor="#042431"
+        BorderWidth="1.5"
+        CornerRadius="6"
+        Padding="0"
+        WidthRequest="200"
+        HeightRequest="36"
+        Margin="0,12,0,0" />
+
+<Border BackgroundColor="#9578AF"
+        Stroke="#042431"
+        StrokeThickness="1.5"
+        WidthRequest="142"
+        HeightRequest="52"
+        HorizontalOptions="Center">
+    <Border.StrokeShape>
+        <RoundRectangle CornerRadius="9" />
+    </Border.StrokeShape>
+    <Entry Text="{Binding RandomNumberText, Mode=OneWay}"
+           IsReadOnly="True"
+           FontSize="28"
+           TextColor="White"
+           BackgroundColor="Transparent"
+           HorizontalTextAlignment="Center"
+           VerticalOptions="Center" />
+</Border>
+    </VerticalStackLayout>
+</ContentPage>
